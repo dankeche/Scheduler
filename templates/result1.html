@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>✅ Schedule Generated Successfully!</h2>
+
+<a href="/download/{{ filename }}" class="btn btn-success btn-lg mb-4">
+    ⬇️ Download Full Excel File
+</a>
+
+<h4>Schedule Preview (First 50 rows)</h4>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Day</th>
+                <th>Zone</th>
+                <th>Shift</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in roster.itertuples() %}
+            <tr>
+                <td>{{ row.Staff_ID }}</td>
+                <td>{{ row.Name }}</td>
+                <td>{{ row.Department }}</td>
+                <td>{{ row.Day }}</td>
+                <td>{{ row.Zone }}</td>
+                <td>{{ row.Shift }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="/" class="btn btn-secondary">← Generate New Schedule</a>
+{% endblock %}

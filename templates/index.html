@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-11">
+
+        {% if session.role == 'admin' %}
+        <!-- ADMIN DASHBOARD -->
+        <div class="card shadow-lg p-5 text-center mb-4">
+            <h1 class="display-4 mb-3">
+                <i class="fas fa-bolt text-primary"></i> DisCo Staff Scheduler
+            </h1>
+            <p class="lead text-muted mb-5">Automated Shift Optimization for Power Distribution</p>
+            
+            <div class="d-grid gap-3 col-8 mx-auto">
+                <a href="/upload" class="btn btn-primary btn-lg py-3">
+                    <i class="fas fa-upload me-2"></i> Upload Staff Data & Generate New Schedule
+                </a>
+                
+                <a href="/staff-preferences" class="btn btn-info btn-lg py-3">
+                    <i class="fas fa-list-check me-2"></i> View Staff Preferences
+                </a>
+            </div>
+
+            <div class="row mt-5 text-center">
+                <div class="col-md-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-body">
+                            <h5>📊 Generate Schedule</h5>
+                            <p class="text-muted">Create optimized weekly roster</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-body">
+                            <h5>📋 Staff Preferences</h5>
+                            <p class="text-muted">Review submitted preferences</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-info">
+                        <div class="card-body">
+                            <h5>📈 Coverage Report</h5>
+                            <p class="text-muted">Check latest schedule quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- STAFF DASHBOARD -->
+        <div class="card shadow p-5 text-center">
+            <h1 class="display-6 mb-4">👷 Welcome, {{ session.user }}!</h1>
+            <p class="lead mb-5">Manage your schedule and preferences</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="/my-schedule" class="btn btn-success btn-lg w-100 py-3 mb-3">
+                        <i class="fas fa-calendar-alt"></i><br>My Personal Schedule
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="/full-roster" class="btn btn-info btn-lg w-100 py-3 mb-3">
+                        <i class="fas fa-users"></i><br>View Full Team Schedule
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

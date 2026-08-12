@@ -1,0 +1,7 @@
+flask
+pandas
+numpy
+pulp
+openpyxl
+werkzeug
+gunicorn

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-success text-white">
+        <h3>✅ Schedule Generated Successfully!</h3>
+    </div>
+    
+    <div class="card-body">
+        <!-- Summary Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center border-primary">
+                    <div class="card-body">
+                        <h5 class="text-muted">Total Staff</h5>
+                        <h2 class="text-primary">{{ summary.total_staff }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center border-success">
+                    <div class="card-body">
+                        <h5 class="text-muted">Total Assignments</h5>
+                        <h2 class="text-success">{{ summary.total_assignments }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center border-info">
+                    <div class="card-body">
+                        <h5 class="text-muted">Avg Shifts/Staff</h5>
+                        <h2 class="text-info">{{ summary.avg_shifts_per_staff }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center border-warning">
+                    <div class="card-body">
+                        <h5 class="text-muted">Overall Coverage</h5>
+                        <h2 class="text-warning">{{ summary.overall_coverage }}%</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="/download/DisCo_Staff_Schedule.xlsx" class="btn btn-success btn-lg mb-4">
+            <i class="fas fa-download"></i> Download Full Excel Report
+        </a>
+
+        <h5 class="mt-4">Schedule Preview (First 50 rows)</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Weekday</th>
+                        <th>Date</th>
+                        <th>Zone</th>
+                        <th>Shift</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in roster.itertuples() %}
+                    <tr>
+                        <td><strong>{{ row.Staff_ID }}</strong></td>
+                        <td>{{ row.Name }}</td>
+                        <td>{{ row.Department }}</td>
+                        <td><strong>{{ row.Weekday }}</strong></td>
+                        <td>{{ row.Date }}</td>
+                        <td><span class="badge bg-info">{{ row.Zone }}</span></td>
+                        <td>
+                            <span class="badge {% if row.Shift == 'Night' %}bg-danger{% elif row.Shift == 'Morning' %}bg-primary{% elif row.Shift == 'Afternoon' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                {{ row.Shift }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card-footer">
+        <a href="/" class="btn btn-secondary">← Generate New Schedule</a>
+    </div>
+</div>
+{% endblock %}
